@@ -1,4 +1,4 @@
-# ![Logo](https://github.com/GovernIB/maven/raw/binaris/serproes/icon.png) Projecte BIOATLES 1.0 (serproes-1.0)
+# ![Logo](https://github.com/Fundacio-Bit/serproes-demo/blob/main/logo_bioatles.JPG) Projecte BIOATLES 1.0 (serproes-1.0)
 *Projecte BIOATLES*
 
 
