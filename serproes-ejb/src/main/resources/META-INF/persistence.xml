@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+  version="2.2">
+	<!-- TODO: l'estàndard hauria de definir un nom per el name del persistence unit? -->
+	<persistence-unit name="serproesPU" transaction-type="JTA">
+		<jta-data-source>java:/SerproesDS</jta-data-source>
+
+		<class>es.caib.serproes.entity.CuadriEntity</class>
+		<class>es.caib.serproes.entity.CuailaEntity</class>
+		<class>es.caib.serproes.entity.CuaillEntity</class>
+		<class>es.caib.serproes.entity.CuamunEntity</class>
+		<class>es.caib.serproes.entity.EspeciEntity</class>
+		<class>es.caib.serproes.entity.FamiliEntity</class>
+		<class>es.caib.serproes.entity.FuenteEntity</class>
+		<class>es.caib.serproes.entity.GrupoEntity</class>
+		<class>es.caib.serproes.entity.HisespEntity</class>
+		<class>es.caib.serproes.entity.IllaEntity</class>
+		<class>es.caib.serproes.entity.FamiliEntity.IllotEntity</class>
+		<class>es.caib.serproes.entity.MuniciEntity</class>
+		<class>es.caib.serproes.entity.ParameEntity</class>
+		<class>es.caib.serproes.entity.RegistEntity</class>
+
+		<properties>
+			<!-- DON'T USE THIS IN PRODUCTION -->
+			<!-- automatically drop and create required database tables -->
+			 <property name="javax.persistence.schema-generation.database.action" value="none" />
+			<!--
+				"none" means do nothing ... so do like JPA has always done things i.e just persistence.
+				"create" means create the tables for the entities (so it is assumed to not exist yet).
+				"drop" means drop the tables for the entities.
+				"drop-and-create" drop and create the tables for the entities, so get rid of what was there and start from scratch. Nothing to do with persisting data, but then none of these options are.
+			-->
+			<!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql" />-->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/serproes"/>
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+			<property name="hibernate.connection.username" value="serproes"/>
+			<property name="hibernate.connection.password" value="serproes"/>
+		</properties>
+	</persistence-unit>
+</persistence>
