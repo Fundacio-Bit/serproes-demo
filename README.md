@@ -139,6 +139,11 @@ JWT. Una vegada verificat es retorna la resposta
 
 
 ## Documentació
+
+Nom | Descripció | Enllaç
+------------ | ------------- | -------------
+(CAT) Manual Instal.lació.odt | Manual Instal.lació | [Document](./doc/(CAT)%20Manual%20Instal.lació.odt)
+
 * [Keycloak Javascript Adapter](https://github.com/keycloak/keycloak-documentation/blob/master/securing_apps/topics/oidc/javascript-adapter.adoc     )
 * [Keycloak connection using a Java application](https://developers.redhat.com/blog/2020/11/24/authentication-and-authorization-using-the-keycloak-rest-api#keycloak_connection_using_a_java_application)
 * [auth0/java-jwt](https://github.com/auth0/java-jwt)
