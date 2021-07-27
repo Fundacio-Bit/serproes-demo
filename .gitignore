@@ -9,4 +9,4 @@ target/
 *.iml
 .idea/
 # Directori build de React
-/serproes-front/src/main/webapp/build/
+# /serproes-front/src/main/webapp/build/

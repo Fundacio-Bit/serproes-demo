@@ -1,24 +1,66 @@
-# ![Logo](https://github.com/Fundacio-Bit/serproes-demo/blob/main/logo_bioatles.JPG) Projecte BIOATLES 1.0
-*Projecte BIOATLES*
+# ![Logo](https://github.com/Fundacio-Bit/serproes-demo/blob/main/logo_bioatles.JPG) Projecte BIOATLES-DEMO 1.0
+*Projecte BIOATLES_DEMO*
 
-En aquest document s'explica primer com configurar les tecnologies que formen part del projecte Bioatles.
-Es recomana la utilització de: 
+Aquesta aplicació és per a mostrar com un backoffice desenvolupat en ReactJS s'autentica en Keycloak i que fa 
+anomenades a una REST API java.
 
-● OpenJDK11
+### Descripció
 
-● JBoss 7.2 EAP
+L'aplicació està implementada utilitzant la versió lliure de la plataforma de desenvolupament de Java OpenJDK 11 i
+s'executa sobre un servidor d'aplicacions JBoss EAP 7.2.
 
-**Descripció**
+La interfície d'usuari està desenvolupada amb ReactJS.
 
-Bioatles és una eina utilitzada pel Servei de Protecció d'Espècies del Govern de les Illes Balears per a tasques de gestió.
+La persistència de dades funciona sobre una base de dades PostgreSQL 10. L'accés a les dades es durà a terme mitjançant
+la API JPA 1.0.
+
+L'autenticació per a accedir als recursos protegits dels mòduls web es realitza mitjançant un mecanisme d'autenticació
+centralitzat: _RedHat Single Sign-On (Keycloak)_.
+
+Per a la construcció del projecte (compilació i empaquetat) i la gestió de dependències s'utilitza Maven 3.6.
+
+
+**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**
+
+Hem configurat un client de Keycloak per retornar JWT en iniciar la sessió.
+
+L'usuari s'autentica mitjançant el seu usuari i contrasenya del GOIB. S'accedeix mitjançant una llibreria Javascript
+client-side. Una cosa important que cal destacar sobre l'ús d'aplicacions del client és que el client ha de ser un client
+públic, ja que no hi ha una manera segura d'emmagatzemar les credencials del client en una aplicació del client. Això fa
+molt important assegurar-se que els URI de redirecció que heu configurat per al client són correctes i el més específics
+possible.
+
+Un cop creat el client feu clic a la pestanya Instal·lació, seleccioneu _**Keycloak JSON OIDC**_ per a l'opció Format i, a
+continuació, feu clic a _Download_.
+
+![img_1.png](img_1.png)
+
+El fitxer "keycloak.json" descarregat s'ha d'enviar al vostre servidor web a la mateixa ubicació que les pàgines HTML i
+és l'única cosa que es necessita per a fer l'autenticació des del client.
+
+En iniciar sessió retorna un *Bearer Token(JWT)*. Aquest token s'emmagatzema en el sessionStorage i
+l'aplicació pot fer sol·licituds als services REST garantits mitjançant la inclusió del token a la capçalera d'autorització.
+
+**<ins>Verificació del JWT(JSON Web Token) des de la API REST</ins>**
+
+La API Rest rep com a capçalera el paràmetre _Authorization_ amb el JWT.
+
+La llibreria _java-jwt_ (auth0/java-jwt) implementa la verificació del token usant l'algorisme _RSA256(RSA Signature
+amb SHA-256)_. Es tracta d'un algorisme asimètric, cosa que significa que hi ha dues claus: una clau pública i una clau
+privada que s'ha de mantenir en secret. El consumidor de JWT recupera una clau pública dels extrems de metadades proporcionats per Auth0 i l'utilitza per validar la signatura
+JWT. Una vegada verificat es retorna la resposta.
+
+
+## Documentació
+
+Nom | Descripció | Enllaç
+------------ | ------------- | -------------
+(CAT) Manual Instal.lació.odt | Manual Instal.lació | [Document](./doc/(CAT)%20Manual%20Instal.lació.odt)
+
 
 ### Ús
 
-- Clonar el repositori:
-
-`git clone https://github.com/Fundacio-Bit/serproes-demo.git`
-
-- Executar des del directori que conté el nostre projecte el següent:
+- Una vegada clonat el repositori, executar des del directori que conté el nostre projecte el següent:
 
 `mvn clean install
 `
@@ -26,7 +68,7 @@ Bioatles és una eina utilitzada pel Servei de Protecció d'Espècies del Govern
   jboss.
   
     
-- Executar scripts de creació de la base de dades.
+- Executar scripts de creació de la base de dades que estan en la carpeta scripts del repositori.
   
 
 - Configurar el JBoss per a accedir a la base de dades. Per a això:
@@ -88,61 +130,6 @@ Bioatles és una eina utilitzada pel Servei de Protecció d'Espècies del Govern
         </validation>
     </datasource>
     ```
-
- ## Especificacions Tecnològiques
-
-L'aplicació està implementada utilitzant la versió lliure de la plataforma de desenvolupament de Java OpenJDK 11 i 
-s'executa sobre un servidor d'aplicacions JBoss EAP 7.2.
-
-La interfície d'usuari està desenvolupada amb ReactJS. 
-
-La persistència de dades funciona sobre una base de dades PostgreSQL 10. L'accés a les dades es durà a terme mitjançant 
-la API JPA 1.0.
-
-L'autenticació per a accedir als recursos protegits dels mòduls web es realitza mitjançant un mecanisme d'autenticació 
-centralitzat: _RedHat Single Sign-On (Keycloak)_.
-
-Per a la construcció del projecte (compilació i empaquetat) i la gestió de dependències s'utilitza Maven 3.6.
-
-### Seguretat
-
-**<ins>Autenticació en Keycloak desde l'interfaz de usuario ReactJS</ins>**
-
-Hem configurat un client de Keycloak per retornar JWT en iniciar la sessió.
-
-L'usuari s'autentica mitjançant el seu usuari i contrasenya del GOIB. S'accedeix mitjançant una llibreria Javascript 
-client-side. Una cosa important que cal destacar sobre l'ús d'aplicacions del client és que el client ha de ser un client 
-públic, ja que no hi ha una manera segura d'emmagatzemar les credencials del client en una aplicació del client. Això fa
-molt important assegurar-se que els URI de redirecció que heu configurat per al client són correctes i el més específics
-possible.
-
-Un cop creat el client feu clic a la pestanya Instal·lació, seleccioneu _**Keycloak JSON OIDC**_ per a l'opció Format i, a 
-continuació, feu clic a _Download_.
-
-![img_1.png](img_1.png)
-
-El fitxer "keycloak.json" descarregat s'ha d'enviar al vostre servidor web a la mateixa ubicació que les pàgines HTML i 
-és l'única cosa que es necessita per a fer l'autenticació des del client.
-
-En iniciar sessió retorna un *Bearer Token(JWT)*. Aquest token s'emmagatzema en el sessionStorage i
-l'aplicació pot fer sol·licituds als services REST garantits mitjançant la inclusió del token a la capçalera d'autorització.
-
-**<ins>Verificació del JWT(JSON Web Token) des de la API REST</ins>**
-
-La API Rest rep com a capçalera el paràmetre _Authorization_ amb el JWT. 
-
-La llibreria _java-jwt_ (auth0/java-jwt) implementa la verificació del token usant l'algorisme _RSA256(RSA Signature 
-amb SHA-256)_. Es tracta d'un algorisme asimètric, cosa que significa que hi ha dues claus: una clau pública i una clau 
-privada que s'ha de mantenir en secret. Auth0 té la clau privada utilitzada per generar la signatura, i el consumidor de 
-JWT recupera una clau pública dels extrems de metadades proporcionats per Auth0 i l'utilitza per validar la signatura 
-JWT. Una vegada verificat es retorna la resposta
-
-
-## Documentació
-
-Nom | Descripció | Enllaç
------------- | ------------- | -------------
-(CAT) Manual Instal.lació.odt | Manual Instal.lació | [Document](./doc/(CAT)%20Manual%20Instal.lació.odt)
 
 * [Keycloak Javascript Adapter](https://github.com/keycloak/keycloak-documentation/blob/master/securing_apps/topics/oidc/javascript-adapter.adoc     )
 * [Keycloak connection using a Java application](https://developers.redhat.com/blog/2020/11/24/authentication-and-authorization-using-the-keycloak-rest-api#keycloak_connection_using_a_java_application)
