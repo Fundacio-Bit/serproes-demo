@@ -1,22 +1,22 @@
-DROP DATABASE serproesdemo;
+DROP DATABASE serproes;
 
-CREATE DATABASE serproesdemo
+CREATE DATABASE serproes
 ENCODING = 'UTF8'
 TABLESPACE = pg_default
 LC_COLLATE = 'Spanish_Spain.1252'
 LC_CTYPE = 'Spanish_Spain.1252'
 CONNECTION LIMIT = -1;
 
-ALTER DATABASE serproesdemo OWNER TO postgres;
-ALTER DATABASE serproesdemo SET client_encoding='UTF8';
+ALTER DATABASE serproes OWNER TO postgres;
+ALTER DATABASE serproes SET client_encoding='UTF8';
 
-CREATE ROLE serproesdemo LOGIN
-ENCRYPTED PASSWORD 'serproesdemo'
+CREATE ROLE serproes LOGIN
+ENCRYPTED PASSWORD 'serproes'
 NOSUPERUSER NOINHERIT NOCREATEDB NOCREATEROLE;
 
-ALTER DATABASE serproesdemo OWNER to serproesdemo;
+ALTER DATABASE serproes OWNER to serproes;
 
-USE serproesdemo;
+\c serproes;
 
 CREATE TABLE public.ser_cuadri (
     "CUA_CODI" bigint,
