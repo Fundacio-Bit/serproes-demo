@@ -1,3 +1,5 @@
+\c serproesdemo;
+
 Insert into SER_ILLA (ILA_CODI,ILA_NOM) values ('1','Mallorca');
 Insert into SER_ILLA (ILA_CODI,ILA_NOM) values ('2','Menorca');
 Insert into SER_ILLA (ILA_CODI,ILA_NOM) values ('3','Eivissa');
@@ -49,29 +51,29 @@ Insert into SER_CUAILA (CUL_CODILA,CUL_CODCUA) values ('3','2104');
 Insert into SER_CUAILA (CUL_CODILA,CUL_CODCUA) values ('3','2115');
 Insert into SER_CUAILA (CUL_CODILA,CUL_CODCUA) values ('3','2116');
 
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('173','973');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('174','974');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('175','1036');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('176','1046');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('177','1047');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('178','1271');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('179','1294');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('180','1295');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('181','1296');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('182','2104');
-Insert into SER_CUAILL (CUI_CODILL,CUL_CODCUA) values ('183','2115');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('173','973');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('174','974');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('175','1036');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('176','1046');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('177','1047');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('178','1271');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('179','1294');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('180','1295');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('181','1296');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('182','2104');
+Insert into SER_CUAILL (CUI_CODILL,CUI_CODCUA) values ('183','2115');
 
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('046','973');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('046','974');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('046','1036');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('048','1046');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('048','1047');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('048','1271');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('050','1294');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('050','1295');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('054','1296');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('054','2104');
-Insert into SER_CUAMUN (CUM_CODMUN,CUL_CODCUA) values ('054','2115');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('046','973');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('046','974');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('046','1036');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('048','1046');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('048','1047');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('048','1271');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('050','1294');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('050','1295');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('054','1296');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('054','2104');
+Insert into SER_CUAMUN (CUM_CODMUN,CUM_CODCUA) values ('054','2115');
 
 
 Insert into SER_GRUPO (GRU_CODI,GRU_NOMBRE,GRU_BORRAD,GRU_TIPO) values ('8','COLEOPTERA','N','fauna');

@@ -10,6 +10,8 @@ CONNECTION LIMIT = -1;
 ALTER DATABASE serproes OWNER TO postgres;
 ALTER DATABASE serproes SET client_encoding='UTF8';
 
+DROP ROLE serproes;
+
 CREATE ROLE serproes LOGIN
 ENCRYPTED PASSWORD 'serproes'
 NOSUPERUSER NOINHERIT NOCREATEDB NOCREATEROLE;
@@ -17,154 +19,296 @@ NOSUPERUSER NOINHERIT NOCREATEDB NOCREATEROLE;
 ALTER DATABASE serproes OWNER to serproes;
 
 \c serproes;
-
-CREATE TABLE public.ser_cuadri (
-    "CUA_CODI" bigint,
-    "CUA_X" integer,
-    "CUA_Y" integer,
-    "CUA_LONGIT" character varying(255),
-    "CUA_LATITU" character varying(255),
-    "CUA_CODISL" integer,
-    "CUA_BORRAD" character(1),
-    "CUA_CODQ5" bigint,
-    "CUA_CODQ10" bigint,
-    CONSTRAINT ser_cua_bor CHECK (("CUA_BORRAD" = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-    CONSTRAINT "ser_cuadri_CUA_CODISL_check" CHECK (("CUA_CODISL" IS NOT NULL)),
-    CONSTRAINT "ser_cuadri_CUA_CODISL_check1" CHECK (("CUA_CODISL" IS NOT NULL))
+ 
+CREATE TABLE public.ser_illa
+(
+    ila_codi bigint NOT NULL,
+    ila_nom character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT ser_illa_pkey PRIMARY KEY (ila_codi)
 );
 
-CREATE INDEX ser_cuadri_cuax ON public.ser_cuadri USING btree ("CUA_X");
-
-CREATE INDEX ser_cuadri_cuay ON public.ser_cuadri USING btree ("CUA_Y");
-
-CREATE UNIQUE INDEX ser_cuadri_pk ON public.ser_cuadri USING btree ("CUA_CODI");
-
-
-CREATE TABLE public.ser_illa (
-    "ILA_CODI" bigint NOT NULL,
-    "ILA_NOM" character varying(255)
+CREATE INDEX ser_illa_nom_i
+    ON public.ser_illa USING btree
+    (ila_nom COLLATE pg_catalog."default" ASC NULLS LAST);
+	
+CREATE TABLE public.ser_illot
+(
+    ill_codi bigint NOT NULL,
+    ill_area double precision,
+    ill_grup character varying(50) COLLATE pg_catalog."default",
+    ill_nom character varying(200) COLLATE pg_catalog."default",
+    ill_peri double precision,
+    ill_x double precision,
+    ill_y double precision,
+    CONSTRAINT ser_illot_pkey PRIMARY KEY (ill_codi)
 );
 
-ALTER TABLE ONLY public.ser_illa
-    ADD CONSTRAINT ser_illa_pk PRIMARY KEY ("ILA_CODI");
-
-
-CREATE INDEX ser_illa_nom_i ON public.ser_illa USING btree ("ILA_NOM");
-
-CREATE UNIQUE INDEX ser_illa_pk_i ON public.ser_illa USING btree ("ILA_CODI");
-
-
-CREATE TABLE public.ser_illot (
-    "ILL_CODI" bigint NOT NULL,
-    "ILL_NOM" character varying(200),
-    "ILL_X" double precision,
-    "ILL_Y" double precision,
-    "ILL_GRUP" character varying(50),
-    "ILL_PERI" double precision,
-    "ILL_AREA" double precision
-);
-
-ALTER TABLE ONLY public.ser_illot
-    ADD CONSTRAINT ser_illot_pk PRIMARY KEY ("ILL_CODI");
-
-CREATE INDEX ser_illot_nom_i ON public.ser_illot USING btree ("ILL_NOM");
-
-CREATE UNIQUE INDEX ser_illot_pk_i ON public.ser_illot USING btree ("ILL_CODI");
-
-
-CREATE TABLE public.ser_cuaila (
-    "CUL_CODILA" bigint,
-    "CUL_CODCUA" bigint
-);
-
-CREATE INDEX ser_cuaila_cuadri_fk_i ON public.ser_cuaila USING btree ("CUL_CODCUA");
-
-CREATE INDEX ser_cuaila_illa_fk_i ON public.ser_cuaila USING btree ("CUL_CODILA");
-
-
-CREATE UNIQUE INDEX ser_cuaila_pk_i ON public.ser_cuaila USING btree ("CUL_CODCUA", "CUL_CODILA");
-
-ALTER TABLE ONLY public.ser_cuaila
-    ADD CONSTRAINT "SER_CUAILA_CUADRI_FK" FOREIGN KEY ("CUL_CODCUA") REFERENCES public.ser_cuadri("CUA_CODI");
-
-
-ALTER TABLE ONLY public.ser_cuaila
-    ADD CONSTRAINT "SER_CUAILA_ILLA_FK" FOREIGN KEY ("CUL_CODILA") REFERENCES public.ser_illa("ILA_CODI");
-
-
-
-CREATE TABLE public.ser_cuaill (
-    "CUI_CODILL" bigint,
-    "CUI_CODCUA" bigint
-);
-
-CREATE INDEX ser_cuaill_codcua_i ON public.ser_cuaill USING btree ("CUI_CODCUA");
-
-CREATE INDEX ser_cuaill_codill_i ON public.ser_cuaill USING btree ("CUI_CODILL");
-
-CREATE UNIQUE INDEX ser_cuaill_pk_i ON public.ser_cuaill USING btree ("CUI_CODCUA", "CUI_CODILL");
-
-ALTER TABLE ONLY public.ser_cuaill
-    ADD CONSTRAINT "SER_CUAILL_CUADRI_FK" FOREIGN KEY ("CUI_CODCUA") REFERENCES public.ser_cuadri("CUA_CODI");
-
-
-ALTER TABLE ONLY public.ser_cuaill
-    ADD CONSTRAINT "SER_CUAILL_ILLOT_FK" FOREIGN KEY ("CUI_CODILL") REFERENCES public.ser_illot("ILL_CODI");
-
-
-
-CREATE TABLE public.ser_munici (
-    "MUN_CODI" character varying(3) NOT NULL,
-    "MUN_NOM" character varying(255),
-    "MUN_CODILA" bigint
-);
-
-ALTER TABLE ONLY public.ser_munici
-    ADD CONSTRAINT ser_munici_pk PRIMARY KEY ("MUN_CODI");
-
-CREATE INDEX ser_munici_illa_fk_i ON public.ser_munici USING btree ("MUN_CODILA");
-
-CREATE INDEX ser_munici_nom_i ON public.ser_munici USING btree ("MUN_NOM");
-
-CREATE UNIQUE INDEX ser_munici_pk_i ON public.ser_munici USING btree ("MUN_CODI");
-
-ALTER TABLE ONLY public.ser_munici
-    ADD CONSTRAINT "SER_MUNICI_ILLA_FK" FOREIGN KEY ("MUN_CODILA") REFERENCES public.ser_illa("ILA_CODI");
-
-
-
-CREATE TABLE public.ser_cuamun (
-    "CUM_CODMUN" character varying(3) NOT NULL,
-    "CUM_CODCUA" bigint NOT NULL
-);
-
-ALTER TABLE ONLY public.ser_cuamun
-    ADD CONSTRAINT ser_cuamun_pk PRIMARY KEY ("CUM_CODCUA", "CUM_CODMUN");
-
-CREATE INDEX ser_cuamun_cuadri_fk_i ON public.ser_cuamun USING btree ("CUM_CODCUA");
-
-CREATE INDEX ser_cuamun_munici_fk_i ON public.ser_cuamun USING btree ("CUM_CODMUN");
-
-CREATE UNIQUE INDEX ser_cuamun_pk_i ON public.ser_cuamun USING btree ("CUM_CODCUA", "CUM_CODMUN");
-
-ALTER TABLE ONLY public.ser_cuamun
-    ADD CONSTRAINT "SER_CUAMUN_CUADRI_FK" FOREIGN KEY ("CUM_CODCUA") REFERENCES public.ser_cuadri("CUA_CODI");
-
-ALTER TABLE ONLY public.ser_cuamun
-    ADD CONSTRAINT "SER_CUAMUN_MUNICI_FK" FOREIGN KEY ("CUM_CODMUN") REFERENCES public.ser_munici("MUN_CODI");
-
-
-
-CREATE TABLE public.ser_grupo (
-    "GRU_CODI" integer,
-    "GRU_NOMBRE" character varying(255),
-    "GRU_BORRAD" character(1) DEFAULT 'N'::bpchar,
-    "GRU_TIPO" character varying(50)
+CREATE INDEX ser_illot_nom_i
+    ON public.ser_illot USING btree
+    (ill_nom COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+	
+CREATE TABLE public.ser_munici
+(
+    mun_codi character varying(3) COLLATE pg_catalog."default" NOT NULL,
+    mun_nom character varying(255) COLLATE pg_catalog."default",
+    mun_codila bigint,
+    CONSTRAINT ser_munici_pkey PRIMARY KEY (mun_codi),
+    CONSTRAINT ser_munici_illa_fk FOREIGN KEY (mun_codila)
+        REFERENCES public.ser_illa (ila_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 
-CREATE INDEX ser_grupo_nombre ON public.ser_grupo USING btree ("GRU_NOMBRE");
+CREATE INDEX ser_munici_illa_fk_i
+    ON public.ser_munici USING btree
+    (mun_codila ASC NULLS LAST);
 
-CREATE UNIQUE INDEX ser_grupo_pk ON public.ser_grupo USING btree ("GRU_CODI");
+CREATE INDEX ser_munici_nom_i
+    ON public.ser_munici USING btree
+    (mun_nom COLLATE pg_catalog."default" ASC NULLS LAST);	
+	
+	
+CREATE TABLE public.ser_cuadri
+(
+    cua_codi bigint NOT NULL,
+    cua_borrad character varying(1) COLLATE pg_catalog."default",
+    cua_codisl integer NOT NULL,
+    cua_codq10 bigint,
+    cua_codq5 bigint,
+    cua_latitu character varying(255) COLLATE pg_catalog."default",
+    cua_longit character varying(255) COLLATE pg_catalog."default",
+    cua_x integer,
+    cua_y integer,
+    CONSTRAINT ser_cuadri_pkey PRIMARY KEY (cua_codi),
+    CONSTRAINT ser_cuadri_cua_borrad_check CHECK (cua_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
+);
 
-CREATE INDEX ser_grupo_tipo ON public.ser_grupo USING btree ("GRU_TIPO");
+ALTER TABLE public.ser_cuadri
+    OWNER to serproes;
+
+CREATE INDEX ser_cuadri_cuax_i
+    ON public.ser_cuadri USING btree
+    (cua_x ASC NULLS LAST);
+
+CREATE INDEX ser_cuadri_cuay_i
+    ON public.ser_cuadri USING btree
+    (cua_y ASC NULLS LAST);
+
+CREATE TABLE public.ser_cuaila
+(
+    cul_codcua bigint NOT NULL,
+    cul_codila bigint NOT NULL,
+    CONSTRAINT ser_cuaila_pkey PRIMARY KEY (cul_codcua, cul_codila),
+    CONSTRAINT ser_cuaila_cuadri_fk FOREIGN KEY (cul_codcua)
+        REFERENCES public.ser_cuadri (cua_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_cuaila_illa_fk FOREIGN KEY (cul_codila)
+        REFERENCES public.ser_illa (ila_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE INDEX ser_cuaila_cuadri_fk_i
+    ON public.ser_cuaila USING btree
+    (cul_codcua ASC NULLS LAST);
+
+CREATE INDEX ser_cuaila_illa_fk_i
+    ON public.ser_cuaila USING btree
+    (cul_codila ASC NULLS LAST);
+	
+CREATE TABLE IF NOT EXISTS public.ser_cuaill
+(
+    cui_codill bigint NOT NULL,
+    cui_codcua bigint NOT NULL,
+    CONSTRAINT ser_cuaill_pkey PRIMARY KEY (cui_codcua, cui_codill),
+    CONSTRAINT ser_cuaill_cuadri_fk FOREIGN KEY (cui_codcua)
+        REFERENCES public.ser_cuadri (cua_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_cuaill_illot_fk FOREIGN KEY (cui_codill)
+        REFERENCES public.ser_illot (ill_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE INDEX ser_cuaill_codcua_i
+    ON public.ser_cuaill USING btree
+    (cui_codcua ASC NULLS LAST);
+
+CREATE INDEX ser_cuaill_codill_i
+    ON public.ser_cuaill USING btree
+    (cui_codill ASC NULLS LAST);
+	
+CREATE TABLE public.ser_cuamun
+(
+    cum_codcua bigint NOT NULL,
+    cum_codmun character varying(3) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT ser_cuamun_pkey PRIMARY KEY (cum_codcua, cum_codmun),
+    CONSTRAINT ser_cuamun_cuadri_fk FOREIGN KEY (cum_codcua)
+        REFERENCES public.ser_cuadri (cua_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_cuamun_munici_fk FOREIGN KEY (cum_codmun)
+        REFERENCES public.ser_munici (mun_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE INDEX ser_cuamun_cuadri_fk_i
+    ON public.ser_cuamun USING btree
+    (cum_codcua ASC NULLS LAST);
+
+CREATE INDEX ser_cuamun_munici_fk_i
+    ON public.ser_cuamun USING btree
+    (cum_codmun COLLATE pg_catalog."default" ASC NULLS LAST);
+
+CREATE TABLE public.ser_grupo
+(
+    gru_codi integer NOT NULL,
+    gru_borrad character varying(255) COLLATE pg_catalog."default",
+    gru_nombre character varying(255) COLLATE pg_catalog."default",
+    gru_tipo character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT ser_grupo_pkey PRIMARY KEY (gru_codi)
+);
+
+
+CREATE INDEX ser_grupo_nombre_i
+    ON public.ser_grupo USING btree
+    (gru_nombre COLLATE pg_catalog."default" ASC NULLS LAST);
+
+CREATE INDEX ser_grupo_tipo_i
+    ON public.ser_grupo USING btree
+    (gru_tipo COLLATE pg_catalog."default" ASC NULLS LAST);	
+	
+CREATE TABLE public.ser_famili
+(
+    fam_codi integer NOT NULL,
+    fam_borrad character varying(1) COLLATE pg_catalog."default",
+    fam_nombre character varying(255) COLLATE pg_catalog."default",
+    fam_codgru integer,
+    CONSTRAINT ser_famili_pkey PRIMARY KEY (fam_codi),
+    CONSTRAINT ser_famgr_fk FOREIGN KEY (fam_codgru)
+        REFERENCES public.ser_grupo (gru_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_famili_fam_borrad_check CHECK (fam_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
+);
+
+CREATE INDEX ser_famili_nombre_i
+    ON public.ser_famili USING btree
+    (fam_nombre COLLATE pg_catalog."default" ASC NULLS LAST);	
+	
+CREATE TABLE public.ser_fuente
+(
+    fue_codi bigint NOT NULL,
+    fue_anyo timestamp without time zone,
+    fue_autor character varying(255) COLLATE pg_catalog."default",
+    fue_borrad character varying(1) COLLATE pg_catalog."default",
+    fue_codtif integer,
+    fue_refere character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT ser_fuente_pkey PRIMARY KEY (fue_codi),
+    CONSTRAINT ser_fuente_fue_borrad_check CHECK (fue_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
+);
+
+CREATE INDEX ser__fuente_autor_i
+    ON public.ser_fuente USING btree
+    (fue_autor COLLATE pg_catalog."default" ASC NULLS LAST);
+
+CREATE INDEX ser_fuente_refere_i
+    ON public.ser_fuente USING btree
+    (fue_refere COLLATE pg_catalog."default" ASC NULLS LAST);	
+
+CREATE TABLE public.ser_especi
+(
+    esp_codi double precision NOT NULL,
+    esp_amenaz character varying(255) COLLATE pg_catalog."default",
+    esp_borrad character varying(1) COLLATE pg_catalog."default",
+    esp_catalo character varying(255) COLLATE pg_catalog."default",
+    esp_endemi double precision,
+    esp_nomcom character varying(255) COLLATE pg_catalog."default",
+    esp_nomcomes character varying(255) COLLATE pg_catalog."default",
+    esp_taxon character varying(255) COLLATE pg_catalog."default",
+    esp_vis1x1 character varying(1) COLLATE pg_catalog."default" DEFAULT 'S'::character varying,
+    esp_codfam integer,
+    CONSTRAINT ser_especi_pkey PRIMARY KEY (esp_codi),
+    CONSTRAINT ser_espfam_fk FOREIGN KEY (esp_codfam)
+        REFERENCES public.ser_famili (fam_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_especi_esp_borrad_check CHECK (esp_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
+);
+
+CREATE INDEX ser_especi_nomcom_i
+    ON public.ser_especi USING btree
+    (esp_nomcom COLLATE pg_catalog."default" ASC NULLS LAST);
+
+CREATE INDEX ser_especi_nomcomes_i
+    ON public.ser_especi USING btree
+    (esp_nomcomes COLLATE pg_catalog."default" ASC NULLS LAST);
+
+CREATE INDEX ser_especi_taxon_i
+    ON public.ser_especi USING btree
+    (esp_taxon COLLATE pg_catalog."default" ASC NULLS LAST);
+	
+CREATE TABLE public.ser_regist
+(
+    reg_codi double precision NOT NULL,
+    error_old_data character varying(255) COLLATE pg_catalog."default",
+    reg_borrad character varying(255) COLLATE pg_catalog."default",
+    reg_codtir integer,
+    reg_descon character varying(255) COLLATE pg_catalog."default",
+    reg_fecbd timestamp without time zone,
+    reg_fecha timestamp without time zone,
+    reg_forfec character varying(255) COLLATE pg_catalog."default",
+    reg_tipcua character varying(255) COLLATE pg_catalog."default",
+    reg_xdetal double precision,
+    reg_ydetal double precision,
+    reg_codcua bigint,
+    reg_codesp double precision,
+    reg_codfue bigint,
+    reg_codill bigint,
+    CONSTRAINT ser_regist_pkey PRIMARY KEY (reg_codi),
+    CONSTRAINT ser_regist_cua_fk FOREIGN KEY (reg_codcua)
+        REFERENCES public.ser_cuadri (cua_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_regist_esp_fk FOREIGN KEY (reg_codesp)
+        REFERENCES public.ser_especi (esp_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_regist_fue_fk FOREIGN KEY (reg_codfue)
+        REFERENCES public.ser_fuente (fue_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ser_regist_ill_fk FOREIGN KEY (reg_codill)
+        REFERENCES public.ser_illot (ill_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+CREATE INDEX ser_regist_codcua_i
+    ON public.ser_regist USING btree
+    (reg_codcua ASC NULLS LAST);
+
+CREATE INDEX ser_regist_codesp_i
+    ON public.ser_regist USING btree
+    (reg_codesp ASC NULLS LAST);
+
+CREATE INDEX ser_regist_codfue_i
+    ON public.ser_regist USING btree
+    (reg_codfue ASC NULLS LAST);
+
+CREATE INDEX ser_regist_codill_i
+    ON public.ser_regist USING btree
+    (reg_codill ASC NULLS LAST);
+
+CREATE INDEX ser_regist_codtir_i
+    ON public.ser_regist USING btree
+    (reg_codtir ASC NULLS LAST);
+
+CREATE INDEX ser_regist_fecha_i
+    ON public.ser_regist USING btree
+    (reg_fecha ASC NULLS LAST);
