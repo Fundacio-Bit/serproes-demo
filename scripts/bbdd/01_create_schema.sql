@@ -325,3 +325,14 @@ CREATE TABLE public.ser_hisesp
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+CREATE TABLE IF NOT EXISTS public.ser_parame
+(
+    par_codi integer NOT NULL,
+    par_borrad character varying(1) COLLATE pg_catalog."default",
+    par_descri character varying(255) COLLATE pg_catalog."default",
+    par_nombre character varying(255) COLLATE pg_catalog."default",
+    par_valor character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT ser_parame_pkey PRIMARY KEY (par_codi),
+    CONSTRAINT ser_parame_par_borrad_check CHECK (par_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
+);
