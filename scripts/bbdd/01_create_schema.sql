@@ -336,3 +336,73 @@ CREATE TABLE IF NOT EXISTS public.ser_parame
     CONSTRAINT ser_parame_pkey PRIMARY KEY (par_codi),
     CONSTRAINT ser_parame_par_borrad_check CHECK (par_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
 );
+
+CREATE SEQUENCE public.hibernate_sequence
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE SEQUENCE public.ser_seqesp
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+CREATE SEQUENCE public.ser_seqfam
+    INCREMENT 1
+    START 3640
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqfue
+    INCREMENT 1
+    START 6880
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqgru
+    INCREMENT 1
+    START 290
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqgrup
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqhis
+    INCREMENT 1
+    START 18960
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqpar
+    INCREMENT 1
+    START 3
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqqua
+    INCREMENT 1
+    START 9907
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
+
+CREATE SEQUENCE public.ser_seqreg
+    INCREMENT 1
+    START 213781
+    MINVALUE 1
+    MAXVALUE 9999999999999
+    CACHE 20;
