@@ -312,3 +312,16 @@ CREATE INDEX ser_regist_codtir_i
 CREATE INDEX ser_regist_fecha_i
     ON public.ser_regist USING btree
     (reg_fecha ASC NULLS LAST);
+
+CREATE TABLE public.ser_hisesp
+(
+    his_codi double precision NOT NULL,
+    his_borrad character varying(255) COLLATE pg_catalog."default",
+    his_sintax character varying(255) COLLATE pg_catalog."default",
+    his_codesp double precision,
+    CONSTRAINT ser_hisesp_pkey PRIMARY KEY (his_codi),
+    CONSTRAINT ser_hisesp_fk FOREIGN KEY (his_codesp)
+        REFERENCES public.ser_especi (esp_codi) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);

@@ -1,4 +1,4 @@
-\c serproesdemo;
+\c serproes;
 
 Insert into SER_ILLA (ILA_CODI,ILA_NOM) values ('1','Mallorca');
 Insert into SER_ILLA (ILA_CODI,ILA_NOM) values ('2','Menorca');
