@@ -337,6 +337,8 @@ CREATE TABLE IF NOT EXISTS public.ser_parame
     CONSTRAINT ser_parame_par_borrad_check CHECK (par_borrad::text = ANY (ARRAY['S'::character varying, 'N'::character varying]::text[]))
 );
 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO serproes;
+
 CREATE SEQUENCE public.hibernate_sequence
     INCREMENT 1
     START 1

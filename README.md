@@ -38,12 +38,7 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
 
 ### Ús del repositori
 
-- Clonar el repositori i executar des del directori que conté el nostre projecte:
-
-     ```
-    mvn clean install
-     ```
-- Desplegar al JBoss el fitxer ear generat "_<project-home>\serproes-demo\serproes-ear\target\serproes-demo.ear_".
+- Desplegar al JBoss el fitxer ear generat.
   
 
 - Executar scripts de creació de la base de dades que estan en la carpeta scripts del repositori:
@@ -75,7 +70,11 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
         </validation>
     </datasource>
     ```
-
+- Configurar client keycloak.
+  
+  Assignar el rol SER_ADMIN a l’usuari.
+  
+VER:adaptar para que funcione con goib-default.
 ## Documentació
 
 Nom | Descripció | Enllaç
