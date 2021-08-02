@@ -1,8 +1,8 @@
-# ![Logo](https://github.com/Fundacio-Bit/serproes-demo/blob/main/logo_bioatles.JPG) Projecte BIOATLES-DEMO 1.0
+# Projecte BIOATLES-DEMO 1.0
 *Projecte BIOATLES_DEMO*
 
 Aquesta aplicació és per a mostrar com un backoffice desenvolupat en ReactJS s'autentica en Keycloak i que fa 
-anomenades a una REST API java.
+cridades a una REST API java.
 
 ### Descripció
 
@@ -51,6 +51,8 @@ privada que s'ha de mantenir en secret. El consumidor de JWT recupera una clau p
 JWT. Una vegada verificat es retorna la resposta.
 
 
+Dar role SER_ADMIN a cliente keycloak
+
 ## Documentació
 
 Nom | Descripció | Enllaç
@@ -70,6 +72,8 @@ Nom | Descripció | Enllaç
     
 - Executar scripts de creació de la base de dades que estan en la carpeta scripts del repositori.
   
+  `psql -U postgres -f <project-home>/scripts/bbdd/01_create_schema.sql`
+
 
 - Configurar el JBoss per a accedir a la base de dades. Per a això:
 
