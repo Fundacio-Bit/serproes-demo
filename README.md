@@ -12,7 +12,7 @@ cridades a una REST API java.
 * Mecanisme d'autenticació: RedHat Single Sign-On (Keycloak)
 * Compilació i empaquetat: Maven 3.6
 
-**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**<sup>1</sup>
+**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**<sup>1(#securing_apps)</sup>
 
 Hem configurat un client de Keycloak per retornar **JSON WEB TOKEN (JWT)** en iniciar la sessió.
 
@@ -85,3 +85,6 @@ Nom | Descripció | Enllaç
 
 ## Llicència
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+	
+	
+<a name="securing_apps">1</a>: https://github.com/keycloak/keycloak-documentation/blob/master/securing_apps/topics/oidc/javascript-adapter.adoc
