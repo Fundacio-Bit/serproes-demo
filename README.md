@@ -12,7 +12,7 @@ cridades a una REST API java.
 * Mecanisme d'autenticació: RedHat Single Sign-On (Keycloak)
 * Compilació i empaquetat: Maven 3.6
 
-**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**<sup>1(#securing_apps)</sup>
+**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**<sup id="a1">[1](#f1)</sup>
 
 Hem configurat un client de Keycloak per retornar **JSON WEB TOKEN (JWT)** en iniciar la sessió.
 
@@ -27,11 +27,11 @@ Dins l'administrador keycloak, es troba el _**Keycloak JSON OIDC**_ que s'ha d'i
 En iniciar sessió, keycloak retorna el *JWT*. Aquest token s'emmagatzema en el sessionStorage i l'aplicació pot fer 
 sol·licituds segures als services REST mitjançant la inclusió del token a la capçalera d'autorització.
 
-**<ins>Verificació del JWT des de la API REST</ins>**
+**<ins>Verificació del JWT des de la API REST</ins>**<sup id="a2">[2](#f2)</sup>
 
 La API Rest rep com a capçalera el paràmetre _Authorization_ amb el JWT.
 
-La llibreria _java-jwt_ (auth0/java-jwt) implementa la verificació del token usant l'algorisme _RSA256(RSA Signature
+La llibreria _java-jwt_<sup id="a3">[3](#f3)</sup> implementa la verificació del token usant l'algorisme _RSA256(RSA Signature
 amb SHA-256)_. El consumidor de JWT recupera una clau pública dels extrems de metadades proporcionats per Auth0 i 
 l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resposta.
 
@@ -87,4 +87,8 @@ Nom | Descripció | Enllaç
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 	
 	
-<a name="securing_apps">1</a>: https://github.com/keycloak/keycloak-documentation/blob/master/securing_apps/topics/oidc/javascript-adapter.adoc
+<b id="f1">[1]</b> [Keycloak Javascript Adapter](https://github.com/keycloak/keycloak-documentation/blob/master/securing_apps/topics/oidc/javascript-adapter.adoc)
+
+<b id="f2">[2]</b> [Keycloak connection using a Java application](https://developers.redhat.com/blog/2020/11/24/authentication-and-authorization-using-the-keycloak-rest-api#keycloak_connection_using_a_java_application)
+	
+<b id="f3">[3]</b> [auth0/java-jwt](https://github.com/auth0/java-jwt)
