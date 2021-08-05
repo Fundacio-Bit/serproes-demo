@@ -38,6 +38,11 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
 
 ### Ús del repositori
 
+**Requisits previs**:
+
+Abans d'obtenir el fitxer ear, s'ha de configurar un client keycloak (veure _Guia de configuració_ apartat "7.2 Keycloak 6.0.1 / Configuració") i, una vegada configurat, dins l'administrador keycloak, des de l'apartat _Clients_, a la pestanya _Instal·lació/Format/Download_, es troba el 
+_**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicaci i obtenir el fitxer ear.
+
 - Desplegar al JBoss el fitxer ear generat.
   
 
@@ -48,7 +53,7 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
       psql -U postgres -f <project-home>/scripts/bbdd/02_sample_data.sql
      ```
 
-- Configurar el JBoss per a accedir a la base de dades (Veure _Guia de configuració_ apartat 
+- Configurar el JBoss per a accedir a la base de dades (veure _Guia de configuració_ apartat 
 "5. Configuració d'un Datasource en JBOSS") i crear els datasources que facin falta afegint-los dins l’etiqueta 
   <datasources> de l’standalone.xml:
 
@@ -70,11 +75,8 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
         </validation>
     </datasource>
     ```
-- Configurar client keycloak.
   
-  Assignar el rol SER_ADMIN a l’usuari.
   
-VER:adaptar para que funcione con goib-default.
 ## Documentació
 
 Nom | Descripció | Enllaç
