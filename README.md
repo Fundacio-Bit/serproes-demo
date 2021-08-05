@@ -12,7 +12,7 @@ cridades a una REST API java.
 * Mecanisme d'autenticació: RedHat Single Sign-On (Keycloak)
 * Compilació i empaquetat: Maven 3.6
 
-**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**
+**<ins>Autenticació en Keycloak desde l'interfície d'usuari ReactJS</ins>**<sup>1</sup>
 
 Hem configurat un client de Keycloak per retornar **JSON WEB TOKEN (JWT)** en iniciar la sessió.
 
