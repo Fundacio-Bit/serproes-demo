@@ -21,8 +21,7 @@ _client-side_. Una cosa important que cal destacar sobre l'ús d'aplicacions _cl
 públic, ja que no hi ha una manera segura d'emmagatzemar les credencials al codi de l'aplicació. Això fa molt important assegurar-se
 que les URIs de redirecció que es configuren al client keycloak siguin correctes i el més específiques possible.
 
-Dins l'administrador keycloak, un cop creat el client a la pestanya _Instal·lació/Format/Download_, es troba el 
-_**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicació client (ReactJS). Aquest codi inclós en un fitxer 
+Dins l'administrador keycloak, es troba el _**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicació client (ReactJS). Aquest codi inclós en un fitxer 
 "keycloak.json", és l'única cosa que es necessita per a fer l'autenticació _client-side_.
 
 En iniciar sessió, keycloak retorna el *JWT*. Aquest token s'emmagatzema en el sessionStorage i l'aplicació pot fer 
@@ -42,6 +41,7 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
 
 Abans d'obtenir el fitxer ear, s'ha de configurar un client keycloak (veure _Guia de configuració_ apartat "7.2 Keycloak 6.0.1 / Configuració") i, una vegada configurat, dins l'administrador keycloak, des de l'apartat _Clients_, a la pestanya _Instal·lació/Format/Download_, es troba el 
 _**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicaci i obtenir el fitxer ear.
+
 
 - Desplegar al JBoss el fitxer ear generat.
   
