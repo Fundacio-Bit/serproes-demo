@@ -38,7 +38,7 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
 ### Ús del repositori
 
 Abans d'obtenir el fitxer ear, s'ha de configurar un client keycloak (veure _Guia de configuració_ apartat "7.2 Keycloak 6.0.1 / Configuració") i, una vegada configurat, dins l'administrador keycloak, des de l'apartat _Clients_, a la pestanya _Instal·lació/Format/Download_, es troba el 
-_**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicaci i obtenir el fitxer ear.
+_**Keycloak JSON OIDC**_ que s'ha d'incloure en el codi de l'aplicació i obtenir el fitxer ear.
 
 A continuació:
 
