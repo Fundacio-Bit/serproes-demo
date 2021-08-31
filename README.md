@@ -74,7 +74,6 @@ l'utilitza per validar la signatura JWT. Una vegada verificat es retorna la resp
   
   Assignar el rol SER_ADMIN a l’usuari.
   
-VER:adaptar para que funcione con goib-default.
 ## Documentació
 
 Nom | Descripció | Enllaç
